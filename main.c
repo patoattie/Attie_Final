@@ -15,6 +15,7 @@ int main()
     int deposito;
     int codProducto;
     int indiceProducto;
+    int cantidad;
 
     if(arrayDep0 != NULL && arrayDep1 != NULL)
     {
@@ -137,9 +138,141 @@ int main()
                 break;
 
             case 4:
+                puntoMenu = deposito_listar(arrayDep0);
+                puntoMenu = deposito_listar(arrayDep1);
+                if(puntoMenu < 0)
+                {
+                    printf("No hay Productos cargados\n");
+                }
+                else
+                {
+                    printf("Ingrese codigo de producto a descontar: ");
+                    scanf("%d", &codProducto);
+                    indiceProducto = producto_buscar(arrayDep0, codProducto);
+                    if(indiceProducto < 0)
+                    {
+                        indiceProducto = producto_buscar(arrayDep1, codProducto);
+                        if(indiceProducto < 0)
+                        {
+                            deposito = -1;
+                        }
+                        else
+                        {
+                            deposito = 1;
+                        }
+                    }
+                    else
+                    {
+                        deposito = 0;
+                    }
+
+                    switch(deposito)
+                    {
+                    case 0:
+                        printf("Ingrese cantidad a descontar: ");
+                        scanf("%d", &cantidad);
+                        if(cantidad > 0)
+                        {
+                            puntoMenu = producto_cambiarCantidad(arrayDep0, indiceProducto, cantidad, -1, ARCHIVO_DEP0);
+                        }
+                        else
+                        {
+                            printf("La cantidad debe ser positiva\n");
+                        }
+
+                        break;
+                    case 1:
+                        printf("Ingrese cantidad a descontar: ");
+                        scanf("%d", &cantidad);
+                        if(cantidad > 0)
+                        {
+                            puntoMenu = producto_cambiarCantidad(arrayDep1, indiceProducto, cantidad, -1, ARCHIVO_DEP1);
+                        }
+                        else
+                        {
+                            printf("La cantidad debe ser positiva\n");
+                        }
+
+                        break;
+                    default:
+                        printf("No existe el producto\n");
+                    }
+                }
+
+                if(puntoMenu < 0)
+                {
+                    printf("Error al descontar el producto\n");
+                }
+
                 break;
 
             case 5:
+                puntoMenu = deposito_listar(arrayDep0);
+                puntoMenu = deposito_listar(arrayDep1);
+                if(puntoMenu < 0)
+                {
+                    printf("No hay Productos cargados\n");
+                }
+                else
+                {
+                    printf("Ingrese codigo de producto a agregar: ");
+                    scanf("%d", &codProducto);
+                    indiceProducto = producto_buscar(arrayDep0, codProducto);
+                    if(indiceProducto < 0)
+                    {
+                        indiceProducto = producto_buscar(arrayDep1, codProducto);
+                        if(indiceProducto < 0)
+                        {
+                            deposito = -1;
+                        }
+                        else
+                        {
+                            deposito = 1;
+                        }
+                    }
+                    else
+                    {
+                        deposito = 0;
+                    }
+
+                    switch(deposito)
+                    {
+                    case 0:
+                        printf("Ingrese cantidad a agregar: ");
+                        scanf("%d", &cantidad);
+                        if(cantidad > 0)
+                        {
+                            puntoMenu = producto_cambiarCantidad(arrayDep0, indiceProducto, cantidad, 1, ARCHIVO_DEP0);
+                        }
+                        else
+                        {
+                            printf("La cantidad debe ser positiva\n");
+                        }
+
+                        break;
+                    case 1:
+                        printf("Ingrese cantidad a agregar: ");
+                        scanf("%d", &cantidad);
+                        if(cantidad > 0)
+                        {
+                            puntoMenu = producto_cambiarCantidad(arrayDep1, indiceProducto, cantidad, 1, ARCHIVO_DEP1);
+                        }
+                        else
+                        {
+                            printf("La cantidad debe ser positiva\n");
+                        }
+
+                        break;
+                    default:
+                        printf("No existe el producto\n");
+                    }
+                }
+
+                if(puntoMenu < 0)
+                {
+                    printf("Error al agregar el producto\n");
+                }
+
                 break;
 
             case 6:

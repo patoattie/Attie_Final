@@ -30,6 +30,7 @@ void producto_print(eProducto* this);
 int deposito_listar(ArrayList* arrayDeposito);
 int producto_buscar(ArrayList* lista, int codProducto);
 int producto_mover(ArrayList* origen, ArrayList* destino, int indiceProducto, const char* nombreArchivoOrigen, const char* nombreArchivoDestino);
+int producto_cambiarCantidad(ArrayList* lista, int indiceProducto, int cantidad, int factor, const char* nombreArchivo);
 int deposito_guardarEnArchivo(ArrayList* lista, const char* nombreArchivo);
 
 #endif // DEPOSITOS_H_INCLUDED

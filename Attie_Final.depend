@@ -7,7 +7,7 @@
 
 1531510016 c:\test\pattie\arraylist\arraylist.h
 
-1531516697 source:c:\test\pattie\attie_final\depositos.c
+1531519092 source:c:\test\pattie\attie_final\depositos.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
@@ -15,9 +15,9 @@
 	"../ArrayList/ArrayList.h"
 	"depositos.h"
 
-1531516254 c:\test\pattie\attie_final\depositos.h
+1531518097 c:\test\pattie\attie_final\depositos.h
 
-1531517032 source:c:\test\pattie\attie_final\main.c
+1531518976 source:c:\test\pattie\attie_final\main.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>

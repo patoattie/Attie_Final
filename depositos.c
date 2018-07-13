@@ -302,14 +302,46 @@ int producto_mover(ArrayList* origen, ArrayList* destino, int indiceProducto, co
     int retorno = -1;
     eProducto* unProducto = NULL;
 
-    if(origen != NULL && destino != NULL && indiceProducto >= 0)
+    if(origen != NULL && destino != NULL && indiceProducto >= 0 && nombreArchivoOrigen != NULL && nombreArchivoDestino != NULL)
     {
         unProducto = (eProducto*)al_pop(origen, indiceProducto);
-        retorno = al_add(destino, unProducto);
-        if(retorno == 0)
+        if(unProducto != NULL)
         {
-            retorno = deposito_guardarEnArchivo(origen, nombreArchivoOrigen);
-            retorno = deposito_guardarEnArchivo(destino, nombreArchivoDestino);
+            retorno = al_add(destino, unProducto);
+            if(retorno == 0)
+            {
+                retorno = deposito_guardarEnArchivo(origen, nombreArchivoOrigen);
+                retorno = deposito_guardarEnArchivo(destino, nombreArchivoDestino);
+            }
+        }
+    }
+
+    return retorno;
+}
+
+int producto_cambiarCantidad(ArrayList* lista, int indiceProducto, int cantidad, int factor, const char* nombreArchivo)
+{
+    int retorno = -1;
+    eProducto* unProducto = NULL;
+    int cantidadFinal;
+
+    if(lista != NULL && indiceProducto >= 0 && cantidad > 0 && (factor == 1 || factor == -1) && nombreArchivo != NULL)
+    {
+        unProducto = (eProducto*)al_get(lista, indiceProducto);
+        if(unProducto != NULL)
+        {
+            cantidadFinal = unProducto->cantidad + (cantidad * factor);
+            if(cantidadFinal >= 0)
+            {
+                if(producto_setCantidad(unProducto, cantidadFinal) == 0)
+                {
+                    retorno = deposito_guardarEnArchivo(lista, nombreArchivo);
+                }
+            }
+            else
+            {
+                printf("No hay cantidad suficiente para descontar\n");
+            }
         }
     }
 
