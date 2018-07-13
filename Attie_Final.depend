@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1531514190 source:c:\test\pattie\arraylist\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1531510016 c:\test\pattie\arraylist\arraylist.h
+
+1531514729 source:c:\test\pattie\attie_final\depositos.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"../ArrayList/ArrayList.h"
+	"depositos.h"
+
+1531513834 c:\test\pattie\attie_final\depositos.h
+
+1531514302 source:c:\test\pattie\attie_final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"../ArrayList/ArrayList.h"
+	"depositos.h"
+

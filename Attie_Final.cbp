@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../ArrayList/ArrayList.h" />
+		<Unit filename="depositos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="depositos.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
