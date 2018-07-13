@@ -102,6 +102,11 @@ int main()
                         else
                         {
                             puntoMenu = producto_mover(arrayDep0, arrayDep1, indiceProducto, ARCHIVO_DEP0, ARCHIVO_DEP1);
+
+                            if(puntoMenu == 0)
+                            {
+                                printf("Mover producto a deposito 1 OK\n");
+                            }
                         }
                     }
                     break;
@@ -123,6 +128,11 @@ int main()
                         else
                         {
                             puntoMenu = producto_mover(arrayDep1, arrayDep0, indiceProducto, ARCHIVO_DEP1, ARCHIVO_DEP0);
+
+                            if(puntoMenu == 0)
+                            {
+                                printf("Mover producto a deposito 0 OK\n");
+                            }
                         }
                     }
                     break;
@@ -174,6 +184,11 @@ int main()
                         if(cantidad > 0)
                         {
                             puntoMenu = producto_cambiarCantidad(arrayDep0, indiceProducto, cantidad, -1, ARCHIVO_DEP0);
+
+                            if(puntoMenu == 0)
+                            {
+                                printf("Descontar producto en deposito 0 OK\n");
+                            }
                         }
                         else
                         {
@@ -187,6 +202,11 @@ int main()
                         if(cantidad > 0)
                         {
                             puntoMenu = producto_cambiarCantidad(arrayDep1, indiceProducto, cantidad, -1, ARCHIVO_DEP1);
+
+                            if(puntoMenu == 0)
+                            {
+                                printf("Descontar producto en deposito 1 OK\n");
+                            }
                         }
                         else
                         {
@@ -243,6 +263,11 @@ int main()
                         if(cantidad > 0)
                         {
                             puntoMenu = producto_cambiarCantidad(arrayDep0, indiceProducto, cantidad, 1, ARCHIVO_DEP0);
+
+                            if(puntoMenu == 0)
+                            {
+                                printf("Agregar producto en deposito 0 OK\n");
+                            }
                         }
                         else
                         {
@@ -256,6 +281,11 @@ int main()
                         if(cantidad > 0)
                         {
                             puntoMenu = producto_cambiarCantidad(arrayDep1, indiceProducto, cantidad, 1, ARCHIVO_DEP1);
+
+                            if(puntoMenu == 0)
+                            {
+                                printf("Agregar producto en deposito 1 OK\n");
+                            }
                         }
                         else
                         {
