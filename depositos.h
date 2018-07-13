@@ -28,6 +28,9 @@ int charCodProductoToCodProducto(char* charCodProducto);
 int charCantidadToCantidad(char* charCantidad);
 void producto_print(eProducto* this);
 int deposito_listar(ArrayList* arrayDeposito);
+int producto_buscar(ArrayList* lista, int codProducto);
+int producto_mover(ArrayList* origen, ArrayList* destino, int indiceProducto, const char* nombreArchivoOrigen, const char* nombreArchivoDestino);
+int deposito_guardarEnArchivo(ArrayList* lista, const char* nombreArchivo);
 
 #endif // DEPOSITOS_H_INCLUDED
 

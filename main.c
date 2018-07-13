@@ -13,6 +13,8 @@ int main()
     int opcion;
     int puntoMenu;
     int deposito;
+    int codProducto;
+    int indiceProducto;
 
     if(arrayDep0 != NULL && arrayDep1 != NULL)
     {
@@ -77,6 +79,61 @@ int main()
                 break;
 
             case 3:
+                printf("Ingrese deposito origen (0 o 1): ");
+                scanf("%d", &deposito);
+                switch(deposito)
+                {
+                case 0:
+                    puntoMenu = deposito_listar(arrayDep0);
+                    if(puntoMenu < 0)
+                    {
+                        printf("No hay Productos cargados\n");
+                    }
+                    else
+                    {
+                        printf("Ingrese codigo de producto a mover: ");
+                        scanf("%d", &codProducto);
+                        indiceProducto = producto_buscar(arrayDep0, codProducto);
+                        if(indiceProducto < 0)
+                        {
+                            printf("No existe el producto\n");
+                        }
+                        else
+                        {
+                            puntoMenu = producto_mover(arrayDep0, arrayDep1, indiceProducto, ARCHIVO_DEP0, ARCHIVO_DEP1);
+                        }
+                    }
+                    break;
+                case 1:
+                    puntoMenu = deposito_listar(arrayDep1);
+                    if(puntoMenu < 0)
+                    {
+                        printf("No hay Productos cargados\n");
+                    }
+                    else
+                    {
+                        printf("Ingrese codigo de producto a mover: ");
+                        scanf("%d", &codProducto);
+                        indiceProducto = producto_buscar(arrayDep1, codProducto);
+                        if(indiceProducto < 0)
+                        {
+                            printf("No existe el producto\n");
+                        }
+                        else
+                        {
+                            puntoMenu = producto_mover(arrayDep1, arrayDep0, indiceProducto, ARCHIVO_DEP1, ARCHIVO_DEP0);
+                        }
+                    }
+                    break;
+                default:
+                    printf("Opcion incorrecta. Debe elegir 0 o 1\n");
+                }
+
+                if(puntoMenu < 0)
+                {
+                    printf("Error al mover el producto\n");
+                }
+
                 break;
 
             case 4:

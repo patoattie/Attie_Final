@@ -269,3 +269,93 @@ int deposito_listar(ArrayList* arrayDeposito)
     return retorno;
 }
 
+int producto_buscar(ArrayList* lista, int codProducto)
+{
+    int retorno = -1;
+    eProducto* unProducto = NULL;
+    int i;
+
+    if(lista != NULL && codProducto > 0)
+    {
+        if(al_isEmpty(lista) == 0)
+        {
+            for(i = 0; i < al_len(lista); i++)
+            {
+                unProducto = (eProducto*)al_get(lista, i);
+                if(unProducto != NULL)
+                {
+                    if(producto_getCodProducto(unProducto) == codProducto)
+                    {
+                        retorno = i;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    return retorno;
+}
+
+int producto_mover(ArrayList* origen, ArrayList* destino, int indiceProducto, const char* nombreArchivoOrigen, const char* nombreArchivoDestino)
+{
+    int retorno = -1;
+    eProducto* unProducto = NULL;
+
+    if(origen != NULL && destino != NULL && indiceProducto >= 0)
+    {
+        unProducto = (eProducto*)al_pop(origen, indiceProducto);
+        retorno = al_add(destino, unProducto);
+        if(retorno == 0)
+        {
+            retorno = deposito_guardarEnArchivo(origen, nombreArchivoOrigen);
+            retorno = deposito_guardarEnArchivo(destino, nombreArchivoDestino);
+        }
+    }
+
+    return retorno;
+}
+
+int deposito_guardarEnArchivo(ArrayList* lista, const char* nombreArchivo)
+{
+    int retorno = -1;
+    FILE* archivo;
+    eProducto* unProducto = NULL;
+    int i;
+    int huboError = 0;
+
+    if(nombreArchivo != NULL)
+    {
+        archivo = fopen(nombreArchivo, "w");
+        if(archivo != NULL)
+        {
+            //unProducto = producto_new();
+            //if(unProducto != NULL)
+            //{
+                for(i = 0; i < al_len(lista); i++)
+                {
+                    unProducto = (eProducto*)al_get(lista, i);
+
+                    if(unProducto != NULL)
+                    {
+                        //cantidadEscrita = fwrite(unProducto, sizeof(eProducto), 1, archivo);
+                        fprintf(archivo, "%d,%s,%d\n", producto_getCodProducto(unProducto), producto_getDescProducto(unProducto), producto_getCantidad(unProducto));
+                    }
+                    else
+                    {
+                        huboError = 1;
+                        break;
+                    }
+                }
+
+                if(huboError == 0)
+                {
+                    retorno = 0;
+                }
+            //}
+            fclose(archivo);
+        }
+    }
+
+    return retorno;
+}
