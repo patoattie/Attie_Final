@@ -16,51 +16,54 @@ int deposito_cargarDesdeArchivo(const char* nombreArchivo, ArrayList* arrayDepos
     int limpiaArray;
     int confirmaParseo = 1;
 
-    if(arrayEstaVacio == 0)
+    if(arrayDeposito != NULL && nombreArchivo != NULL)
     {
-        do
+        if(arrayEstaVacio == 0)
         {
-            printf("La carga de Deposito desde archivo sobreescribira los Productos ya cargados. Continua? (S/N): ");
-            fflush(stdin);
-            scanf("%c", &continua);
-            if(toupper(continua) != 'S' && toupper(continua) != 'N')
+            do
             {
-                printf("Opcion no valida, debe ingresar S o N. Por favor reingrese\n");
-            }
-        } while(toupper(continua) != 'S' && toupper(continua) != 'N');
+                printf("La carga de Deposito desde archivo sobreescribira los Productos ya cargados. Continua? (S/N): ");
+                fflush(stdin);
+                scanf("%c", &continua);
+                if(toupper(continua) != 'S' && toupper(continua) != 'N')
+                {
+                    printf("Opcion no valida, debe ingresar S o N. Por favor reingrese\n");
+                }
+            } while(toupper(continua) != 'S' && toupper(continua) != 'N');
 
-        if(toupper(continua) == 'S')
-        {
-            limpiaArray = al_clear(arrayDeposito);
-            if(limpiaArray < 0)
+            if(toupper(continua) == 'S')
             {
-                printf("Error al limpiar array list\n");
-                confirmaParseo = 0; //Error al limpiar arrayList, se cancela
+                limpiaArray = al_clear(arrayDeposito);
+                if(limpiaArray < 0)
+                {
+                    printf("Error al limpiar array list\n");
+                    confirmaParseo = 0; //Error al limpiar arrayList, se cancela
+                }
+            }
+            else
+            {
+                printf("Parseo cancelado por el usuario\n");
+                confirmaParseo = 0; //Cancelado por el usuario
             }
         }
-        else
+        else if(arrayEstaVacio < 0)
         {
-            printf("Parseo cancelado por el usuario\n");
+            printf("Array list apunta a NULL\n");
             confirmaParseo = 0; //Cancelado por el usuario
         }
-    }
-    else if(arrayEstaVacio < 0)
-    {
-        printf("Array list apunta a NULL\n");
-        confirmaParseo = 0; //Cancelado por el usuario
-    }
 
-    if(confirmaParseo == 1)
-    {
-        archivoDeposito = fopen(nombreArchivo, "r");
-        if(archivoDeposito != NULL)
+        if(confirmaParseo == 1)
         {
-            parseoArchivo = deposito_parser(archivoDeposito, arrayDeposito);
-            cerroArchivo = fclose(archivoDeposito);
-
-            if(parseoArchivo == 0 && cerroArchivo == 0)
+            archivoDeposito = fopen(nombreArchivo, "r");
+            if(archivoDeposito != NULL)
             {
-                retorno = 0;
+                parseoArchivo = deposito_parser(archivoDeposito, arrayDeposito);
+                cerroArchivo = fclose(archivoDeposito);
+
+                if(parseoArchivo == 0 && cerroArchivo == 0)
+                {
+                    retorno = 0;
+                }
             }
         }
     }
@@ -81,7 +84,7 @@ int deposito_parser(FILE* pFile, ArrayList* pArrayListDeposito)
     int guardoDato;
     int huboError = 0;
 
-    if(pFile != NULL)
+    if(pFile != NULL && pArrayListDeposito != NULL)
     {
         if(TIENE_ENCABEZADO_ARCHIVO_DEPOSITO)
         {
@@ -247,7 +250,7 @@ int charCantidadToCantidad(char* charCantidad)
 
 void producto_print(eProducto* this)
 {
-    printf("%d - %s - %d\n", this->codProducto, this->descProducto, this->cantidad);
+    printf("%d - %s - %d\n", producto_getCodProducto(this), producto_getDescProducto(this), producto_getCantidad(this));
 }
 
 int deposito_listar(ArrayList* arrayDeposito)
@@ -256,13 +259,16 @@ int deposito_listar(ArrayList* arrayDeposito)
     int retorno = -1;
     eProducto* unProducto = NULL;
 
-    for(i = 0; i < al_len(arrayDeposito); i++)
+    if(arrayDeposito != NULL)
     {
-        unProducto = (eProducto*)al_get(arrayDeposito, i);
-        if(unProducto != NULL)
+        for(i = 0; i < al_len(arrayDeposito); i++)
         {
-            producto_print(unProducto);
-            retorno = 0;
+            unProducto = (eProducto*)al_get(arrayDeposito, i);
+            if(unProducto != NULL)
+            {
+                producto_print(unProducto);
+                retorno = 0;
+            }
         }
     }
 
@@ -356,7 +362,7 @@ int deposito_guardarEnArchivo(ArrayList* lista, const char* nombreArchivo)
     int i;
     int huboError = 0;
 
-    if(nombreArchivo != NULL)
+    if(lista != NULL && nombreArchivo != NULL)
     {
         archivo = fopen(nombreArchivo, "w");
         if(archivo != NULL)
